@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Transferencia } from '../models/transferencias.model';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -26,8 +27,8 @@ export class TransferenciaService {
      return this.valorTotalTransferencias;
    }
 
-   getTransferenciasApi(){
-     return this.httpClient.get<Transferencia>(this.urlGetTransferencias)
+   getTransferenciasApi() : Observable<Transferencia>{
+     return this.httpClient.get<Transferencia>(this.urlGetTransferencias);
    }
 
    transferencia(transferencia : any){

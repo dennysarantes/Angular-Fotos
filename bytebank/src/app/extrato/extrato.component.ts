@@ -1,5 +1,5 @@
-
-import { Injectable, Input, Output } from '@angular/core';
+import { Transferencia } from './../models/transferencias.model';
+import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { TransferenciaService } from '../services/transferencia.service';
 
@@ -18,7 +18,11 @@ export class ExtratoComponent implements OnInit {
   constructor(private service : TransferenciaService){} //Injeta a classe de serviço
 
   ngOnInit(): void {
-    this.transferenciasParaMostrarNoExtrato =  this.service.transferenciasX;
+    //this.transferenciasParaMostrarNoExtrato =  this.service.transferenciasX;
+    this.service.getTransferenciasApi().subscribe((transferenciasRecebidasAAPI : Transferencia[] | any)  => {
+      console.table("Tabela: " + transferenciasRecebidasAAPI)
+      this.transferenciasParaMostrarNoExtrato = transferenciasRecebidasAAPI;
+    })
   }
 
 }
