@@ -1,0 +1,29 @@
+
+<section class="container">
+  <p class="titulo">Extrato</p>
+    <table class="tabela">
+      <thead class="tabela__cabecalho">
+          <th class="tabela__cabecalho__conteudo" >#</th>
+          <th class="tabela__cabecalho__conteudo">Data</th>
+          <th class="tabela__cabecalho__conteudo">Valor</th>
+          <th class="tabela__cabecalho__conteudo">Destino</th>
+      </thead>
+      <tbody *ngIf="transferenciasParaMostrarNoExtrato.length > 0; else extratoVazio ">
+        <tr class="tabela__linha" *ngFor="let transferencia of transferenciasParaMostrarNoExtrato ; index as i">
+          <td class="tabela__conteudo">{{ i + 1 + 'º'}}</td>
+          <td class="tabela__conteudo">{{ transferencia?.data | date  : 'short'}}</td>
+          <td class="tabela__conteudo">{{ transferencia?.valor | currency : 'BRL'}}</td>
+          <td class="tabela__conteudo">{{ transferencia?.destino }} </td>
+        </tr>
+    </tbody>
+    <tfoot *ngIf="total > 0 ">
+      <tr>
+          <th colspan="2">Valor total de transferências</th>
+          <td >{{ total | currency : 'BRL'}}</td>
+      </tr>
+  </tfoot>
+    </table>
+</section>
+<ng-template #extratoVazio>
+  <tr class="tabela__linha"><td colspan="4">Nenhuma operação cadastrada</td></tr>
+</ng-template>
