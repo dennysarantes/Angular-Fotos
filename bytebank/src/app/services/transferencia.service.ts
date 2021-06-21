@@ -1,6 +1,6 @@
+import { Transferencia } from './../models/transferencias.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Transferencia } from '../models/transferencias.model';
 import { Observable } from 'rxjs';
 
 
@@ -12,6 +12,7 @@ export class TransferenciaService {
   private dadosTransferenciasX : any[] = [];
   private valorTotalTransferencias : number;
   private urlGetTransferencias = 'http://localhost:3000/transferencias'
+  private urlPostTransferencias = 'http://localhost:3000/transferencias'
 
 
     constructor(private httpClient: HttpClient) {
@@ -31,9 +32,14 @@ export class TransferenciaService {
      return this.httpClient.get<Transferencia>(this.urlGetTransferencias);
    }
 
-   transferencia(transferencia : any){
+   transferencia(transferencia : any) : Observable<Transferencia>{
+
     const transferenciaCompleta = this.complementarTransferencia(transferencia);
-    this.dadosTransferenciasX.push(transferenciaCompleta);
+    return this.httpClient.post<Transferencia>(this.urlGetTransferencias, transferenciaCompleta);
+
+    //this.dadosTransferenciasX.push(transferenciaCompleta);
+
+
     this.atualizaTotal(transferencia);
   }
 

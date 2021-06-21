@@ -1,6 +1,8 @@
+import { Transferencia } from './../models/transferencias.model';
 import { EventEmitter, Input } from "@angular/core";
 import { Component, Output } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { TransferenciaService } from "../services/transferencia.service";
 
 
 @Component({
@@ -15,6 +17,8 @@ export class NovaTransferenciaComponent {
     valor : number = 0;
     destino : string = '';
 
+    constructor(private service : TransferenciaService){ }
+
     valores(){
       return this.valor;
     }
@@ -23,11 +27,18 @@ export class NovaTransferenciaComponent {
 
         console.log('Nova transferência solicitada...')
 
-        const dadosTrans = { valor: this.valor, destino : this.destino } //Cria um objeto com o valor e o destino
+        const dadosTrans : Transferencia = { valor: this.valor, destino : this.destino } //Cria um objeto com o valor e o destino
         /* const valorEmitido = `O valor informado é: ${this.valor}`; */
 
         this.aoTransferir.emit(dadosTrans); //O objeto é exportado!
-        this.limparFormulario()
+
+        this.service.transferencia(dadosTrans).subscribe(resultadoPost => {
+          console.log(resultadoPost);
+          this.limparFormulario()
+        },
+          error => console.error(error)
+        );
+
     }
 
     limparFormulario(){

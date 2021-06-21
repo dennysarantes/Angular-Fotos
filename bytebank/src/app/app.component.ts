@@ -19,7 +19,7 @@ export class AppComponent {
 
   transferencia($event : any){
 
-     this.service.transferencia($event);
+    // this.service.transferencia($event);
      this.total = this.service.totalTransferencias;
   }
 
