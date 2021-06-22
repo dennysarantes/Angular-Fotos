@@ -12,14 +12,14 @@
         <tr class="tabela__linha" *ngFor="let transferencia of transferenciasParaMostrarNoExtrato ; index as i">
           <td class="tabela__conteudo">{{ i + 1 + 'º'}}</td>
           <td class="tabela__conteudo">{{ transferencia?.data | date  : 'short'}}</td>
-          <td class="tabela__conteudo">{{ transferencia?.valor | currency : 'BRL'}}</td>
+          <td class="tabela__conteudo valor">{{ transferencia?.valor | currency : 'BRL'}}</td>
           <td class="tabela__conteudo">{{ transferencia?.destino }} </td>
         </tr>
     </tbody>
-    <tfoot *ngIf="total > 0 ">
+    <tfoot *ngIf="totalValor > 0 ">
       <tr>
           <th colspan="2">Valor total de transferências</th>
-          <td >{{ total | currency : 'BRL'}}</td>
+          <td >{{ totalValor | currency : 'BRL'}}</td>
       </tr>
   </tfoot>
     </table>

@@ -13,15 +13,19 @@ export class ExtratoComponent implements OnInit {
 
   @Input() total : number = 0; //Recebido pelo app.component e service
 
-  transferenciasParaMostrarNoExtrato : any[] = [];
+  transferenciasParaMostrarNoExtrato : Transferencia[] = [];
+  totalValor : number;
 
-  constructor(private service : TransferenciaService){} //Injeta a classe de serviço
+  constructor(private service : TransferenciaService){this.totalValor = 0;} //Injeta a classe de serviço
 
   ngOnInit(): void {
     //this.transferenciasParaMostrarNoExtrato =  this.service.transferenciasX;
     this.service.getTransferenciasApi().subscribe((transferenciasRecebidasAAPI : Transferencia[] | any)  => {
       console.table("Tabela: " + transferenciasRecebidasAAPI)
       this.transferenciasParaMostrarNoExtrato = transferenciasRecebidasAAPI;
+      this.transferenciasParaMostrarNoExtrato.forEach(t => {
+        this.totalValor = (this.totalValor + t.valor);
+      })
     })
   }
 

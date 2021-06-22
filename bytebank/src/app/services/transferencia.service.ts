@@ -35,7 +35,7 @@ export class TransferenciaService {
    transferencia(transferencia : any) : Observable<Transferencia>{
 
     const transferenciaCompleta = this.complementarTransferencia(transferencia);
-    return this.httpClient.post<Transferencia>(this.urlGetTransferencias, transferenciaCompleta);
+    return this.httpClient.post<Transferencia>(this.urlPostTransferencias, transferenciaCompleta);
 
     //this.dadosTransferenciasX.push(transferenciaCompleta);
 
