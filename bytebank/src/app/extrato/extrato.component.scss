@@ -35,4 +35,19 @@
     padding: 10px;
     border-bottom: 1px solid var(--cinza-claro);
   }
+
+  &__rodape{
+    text-align: center;
+
+    &__conteudo{
+      padding: 10px;
+      border-bottom: 2px solid green;
+
+      &__valor{
+        background: lightgreen;
+        color: black;
+      }
+    }
+
+  }
 }

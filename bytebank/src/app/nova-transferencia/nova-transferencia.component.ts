@@ -3,6 +3,7 @@ import { EventEmitter, Input } from "@angular/core";
 import { Component, Output } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { TransferenciaService } from "../services/transferencia.service";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class NovaTransferenciaComponent {
     valor : number = 0;
     destino : string = '';
 
-    constructor(private service : TransferenciaService){ }
+    constructor(private service : TransferenciaService,
+                private router : Router){ }
 
     valores(){
       return this.valor;
@@ -34,7 +36,8 @@ export class NovaTransferenciaComponent {
 
         this.service.transferencia(dadosTrans).subscribe(resultadoPost => {
           console.log(resultadoPost);
-          this.limparFormulario()
+          this.limparFormulario();
+          this.router.navigateByUrl('extrato');
         },
           error => console.error(error)
         );

@@ -1,6 +1,6 @@
 
 <section class="container">
-  <p class="titulo">Extrato</p>
+  <p class="titulo">Extrato de transferências</p>
     <table class="tabela">
       <thead class="tabela__cabecalho">
           <th class="tabela__cabecalho__conteudo" >#</th>
@@ -17,9 +17,9 @@
         </tr>
     </tbody>
     <tfoot *ngIf="totalValor > 0 ">
-      <tr>
-          <th colspan="2">Valor total de transferências</th>
-          <td >{{ totalValor | currency : 'BRL'}}</td>
+      <tr class="tabela__rodape">
+          <th  class="tabela__rodape__conteudo" colspan="2">Valor total de transferências</th>
+          <td  class="tabela__rodape__conteudo__valor">{{ totalValor | currency : 'BRL'}}</td>
       </tr>
   </tfoot>
     </table>
@@ -27,3 +27,5 @@
 <ng-template #extratoVazio>
   <tr class="tabela__linha"><td colspan="4">Nenhuma operação cadastrada</td></tr>
 </ng-template>
+
+
