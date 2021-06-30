@@ -1,0 +1,20 @@
+<!-- <ol class="list-unstyled row">
+    <li  *ngFor="let p of photosList" class="col-4">
+        <app-photo
+                [caminhoImg]="p.url"
+                [description]="p.description">
+        </app-photo>
+    </li>
+</ol>''
+ -->
+<app-search (aoDigitarNoSearch)= "filter = $event" [value] = 'filter'></app-search>
+ <p class="teste"> {{ filter }} </p>
+
+ <app-photos [photos] = 'photosList | filtrarPelaDescricao : filter' ></app-photos> <!-- Dessa forma, a propriedade [photos] (de app-photos) passada
+                                        a lista de fotos para o component app-list. -->
+<div class="py-5">
+<app-load-button
+    (click)="load()"
+    [hasMore] = 'hasMore'>
+</app-load-button>
+</div>

@@ -1,0 +1,6 @@
+1- Para adicionar o boostrap:
+  a) parar o CLI;
+  b) executar o comando: npm install boostrap;
+  c) entrar na pasta angular.json e incluir dentro da tag styles (após a styless.css)
+      "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+  d) reiniciar o server (ng serve)

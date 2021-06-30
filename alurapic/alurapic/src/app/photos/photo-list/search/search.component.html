@@ -1,0 +1,13 @@
+<div class="text-center mt-3 mb-3">
+  <form>
+    <i class="fas fa-search me-2"></i>
+          <input
+          class="rounded"
+          type="search"
+          placeholder="filtrar por..."
+          autofocus
+          (keyup) ="pegaFiltroComDebounce($event)"
+          [value]="value"
+          >
+  </form>
+</div>
