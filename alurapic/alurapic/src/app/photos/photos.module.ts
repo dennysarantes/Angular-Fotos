@@ -1,3 +1,4 @@
+import { CabecalhoModule } from './../cabecalho/cabecalho-module/cabecalho.module';
 import { FiltrarPelaDescricaoPipe } from './photo-list/filtrarPelaDescricao.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,8 @@ import { DarkOnHoverModule } from '../shared/diretivas/dark-on-hover.module';
     CommonModule,
     HttpClientModule,
     CardModule,
-    DarkOnHoverModule
+    DarkOnHoverModule,
+    CabecalhoModule
   ],
   declarations: [
                   PhotoComponent,

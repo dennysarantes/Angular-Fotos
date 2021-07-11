@@ -1,0 +1,61 @@
+<h4 class="text-center p-3"> Tela de registro do usuário</h4>
+
+<form [formGroup]="signupForm" class="form mt-4" (ngSubmit)="registrarUsuario()"  >
+    <div class="form-group">
+
+        <input #emailInput id="emailInput" formControlName="email" placeholder="E-mail" class="form-control" autofocus >
+        <app-vmessage *ngIf="signupForm.get('email').errors?.required"
+                      mensagemDeErro="*">
+        </app-vmessage>
+        <app-vmessage *ngIf="signupForm.get('email').errors?.email"
+                      mensagemDeErro="Email inválido">
+        </app-vmessage>
+
+      </div>
+
+    <div class="form-group">
+        <input formControlName="fullName" placeholder="Nome completo" class="form-control mt-1">
+        <app-vmessage *ngIf="signupForm.get('fullName').errors?.required"
+                mensagemDeErro="*">
+      </app-vmessage>
+      <app-vmessage *ngIf="signupForm.get('fullName').errors?.minlength"
+                    mensagemDeErro="O nome deve ter pelo menos 10 palavras">
+      </app-vmessage>
+      <app-vmessage *ngIf="signupForm.get('fullName').errors?.maxlength"
+                     mensagemDeErro="O nome deve ter no máximo 50 palavras">
+      </app-vmessage>
+    </div>
+
+    <div class="form-group mt-1">
+        <input  autofocus formControlName="userName" placeholder="Nome de usuario" class="form-control mt-1">
+        <app-vmessage *ngIf="signupForm.get('userName').errors?.required"
+        mensagemDeErro="*">
+        </app-vmessage>
+        <app-vmessage *ngIf="signupForm.get('userName').errors?.userNameVal"
+        mensagemDeErro="O nome de usuário não pode começar com A -> testando validador próprio">
+      </app-vmessage>
+      <app-vmessage *ngIf="signupForm.get('userName').errors?.userJaExiste"
+        mensagemDeErro="Esse username já existe">
+      </app-vmessage>
+      <small *ngIf="signupForm.get('userName').valid" class="text-success">Nome de usuário disponível</small>
+
+      </div>
+
+    <div class="form-group">
+        <input formControlName="password" type="password" placeholder="Senha" class="form-control">
+    </div>
+        <app-vmessage *ngIf="signupForm.get('password').errors?.required"
+              mensagemDeErro="*">
+        </app-vmessage>
+        <app-vmessage *ngIf="signupForm.get('password').errors?.minlength"
+                    mensagemDeErro="A senha deve ter de 3 a 6 palavras">
+      </app-vmessage>
+
+      <app-vmessage *ngIf="signupForm.get('password').errors?.maxlength"
+                     mensagemDeErro="A senha deve ter de 3 a 6 palavras">
+      </app-vmessage>
+
+      <button [disabled]="!signupForm.valid || signupForm.pending" class="btn btn-primary btn-block" >Register</button>
+
+    <p>Já é um usuário?  <a [routerLink]="['']">Faça o log-in!</a></p>
+</form>
