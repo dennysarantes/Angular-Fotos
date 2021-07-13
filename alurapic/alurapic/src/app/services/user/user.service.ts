@@ -3,7 +3,6 @@ import { TokenService } from './../token/token.service';
 import { Injectable } from '@angular/core';
 import { User } from './model/user';
 import * as jwt_decode from 'jwt-decode'
-import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'

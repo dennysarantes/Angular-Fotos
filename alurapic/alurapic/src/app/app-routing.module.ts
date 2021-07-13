@@ -5,27 +5,42 @@ import { RouterModule, Routes } from '@angular/router';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SiginComponent } from './home/sigin/sigin.component';
-import { AuthGuard } from './services/auth/auth-guard/auth.guard';
-import { HomeComponent } from './home/home/home.component';
 
 const routes: Routes = [
-  {     path: ''
-        ,component : HomeComponent
-        ,canActivate: [AuthGuard],
-        children: [
-          {path: '' , component : SiginComponent},
-          {path: 'user/add' , component : SignupComponent}
-        ]
+
+  //Rota que cria um alias 'home' para o edereço localhost/
+  {
+    path: '',
+    pathMatch:'full', //só se aplica se o usuário colocar ''
+    redirectTo:'home'
   },
-  {path: 'p/add' , component : PhotoFormComponent},
 
+  //Rota para acesso ao login e registro de novo usuário
+  {
+    path: 'home',
+    loadChildren:   () => import('src/app/home/home.module').then(m => m.HomeModule)
 
-  {path: 'user/:userName' , component : PhotoListComponent,
-  resolve : {
-    photos : PhotoListResolver
-  }},
-  {path: '**' , component : NotFoundComponent }
+  },
+
+  //Rota para adicionar fotos
+  {
+    path: 'p/add',
+    component : PhotoFormComponent
+  },
+
+  //Rota para acessar as fotos
+  {
+    path: 'user/:userName' ,
+    component : PhotoListComponent,
+    resolve : {
+                photos : PhotoListResolver
+              }
+  },
+
+  {
+    path: '**' ,
+    component : NotFoundComponent
+  }
 ];
 
 @NgModule({

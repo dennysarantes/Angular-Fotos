@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms'
 import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
 import { HomeComponent } from './home/home.component';
+import { HomeRoutingModule } from './home.routing.module';
 
 @NgModule({
   declarations: [SiginComponent,
@@ -14,7 +15,8 @@ import { HomeComponent } from './home/home.component';
   imports: [CommonModule,
             ReactiveFormsModule,
             VMessageModule,
-            RouterModule]
+            RouterModule,
+            HomeRoutingModule]
 })
 
 export class HomeModule {}

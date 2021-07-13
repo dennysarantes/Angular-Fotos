@@ -34,7 +34,7 @@ export class ApiService {
     if(this.tokenService.hasToken()){
       let token = this.tokenService.getToken();
       return this.httpClient.get<Photos>(urlPhotos + userName  + '/photos',
-      {headers: {"x-access-token": token},  params : params} //esse params é a page estipulada na API},
+      {/* headers: {"x-access-token": token}, */  params : params} //esse params é a page estipulada na API},
       );
     }
     return this.httpClient.get<Photos>(urlPhotos + userName  + '/photos', {params : params});

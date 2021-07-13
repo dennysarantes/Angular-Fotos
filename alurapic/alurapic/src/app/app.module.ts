@@ -6,9 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PhotosModule } from './photos/photos.module';
-import { CardComponent } from './shared/components/card/card.component';
 import { HomeModule } from './home/home.module';
-import { CabecalhoComponent } from './cabecalho/cabecalho.component';
+import { RequestInterceptService } from './services/auth/request-interceptor/requestIntercept.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 
 
@@ -18,14 +19,15 @@ import { CabecalhoComponent } from './cabecalho/cabecalho.component';
    ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     PhotosModule,
     ErrosModule,
-    HomeModule,
     CabecalhoModule,
-    RouterModule
+    RouterModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, // esse provider é para incluir o token no header
+    useClass: RequestInterceptService,
+    multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
