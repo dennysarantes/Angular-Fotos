@@ -1,6 +1,24 @@
-<header class="fixed-top p-2">
-  <nav class="navbar navbar-light bg-white">
-      <a class="navbar-brand">HYPER - PIC</a>
+<header class="fixed-top">
+  <nav class="navbar navbar-light bg-white p-3">
+      <a class="navbar-brand ">
+        <i (keyup.space)="menu.toggle()"
+          tabindex="0"
+          (click)="menu.toggle()"
+          style="cursor: pointer"
+          class="fas fa-bars mr-2">
+        </i>
+           HYPER - PIC</a>
+
+      <app-menu #menu>
+        <ul class="list-unstyled">
+          <li>
+              <a (click)="menu.toggle()"
+                 Check-If-Logged [routerLink]="['/p','add']">
+                 Upload
+              </a>
+          </li>
+      </ul>
+      </app-menu>
       <div *ngIf="user ; else login" >
           <i class="fa fa-user-circle"></i>
           <a class="mr-2">{{ user?.name }}</a>
@@ -13,5 +31,9 @@
         </span>
       </ng-template>
   </nav>
+  <div class="fixed-top">
+    <app-loading></app-loading>
+    <app-alert></app-alert>
+  </div>
 </header>
 

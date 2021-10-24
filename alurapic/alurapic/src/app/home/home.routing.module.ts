@@ -13,8 +13,10 @@ const routes: Routes = [
         ,component : HomeComponent
         ,canActivate: [AuthGuard],
         children: [
-          {path: '' , component : SiginComponent},
-          {path: 'user/add' , component : SignupComponent}
+          {path: '' , component : SiginComponent,
+          data: {title : 'Login'}},
+          {path: 'user/add' , component : SignupComponent,
+          data: {title : 'Signup'}}
         ]
   },
 ];

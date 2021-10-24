@@ -12,17 +12,21 @@ constructor(private signupService : SignupService){}
 não aceita injeção de dependência. */
 
   checkUserName(){
-    return (control : AbstractControl) => {
-
-      return control
-            .valueChanges
-            .pipe(debounceTime(500))
-            .pipe(switchMap(userName => { //Esse passo é importante para que o observable troque 'switch' a chamada
-              return this.signupService.verificaUserName(userName);
-            }))
-            .pipe(map(jaExiste => jaExiste ? {userJaExiste : true} : false))
-            //Se o usuário existir retorna um objeto, caso contrário devolve false
-            .pipe(first());
+    console.log('checando se usuário existe...')
+    try {
+      return  (control : AbstractControl) => {
+        return control
+              .valueChanges
+              .pipe(debounceTime(500))
+              .pipe(switchMap(userName => { //Esse passo é importante para que o observable troque 'switch' a chamada
+                return this.signupService.verificaUserName(userName);
+              }))
+              .pipe(map(jaExiste => jaExiste ? {userJaExiste : true} : false))
+              //Se o usuário existir retorna um objeto, caso contrário devolve false
+              .pipe(first());
+      }
+    } catch (error) {
+      return null;
     }
   }
 }

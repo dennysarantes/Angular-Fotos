@@ -1,3 +1,5 @@
+import { AlertModule } from './shared/components/alert/alert/alert.module';
+import { FooterModule } from './footer/footer/footer.module';
 import { RouterModule } from '@angular/router';
 import { CabecalhoModule } from './cabecalho/cabecalho-module/cabecalho.module';
 import { ErrosModule } from './errors/erros/erros.module';
@@ -6,12 +8,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PhotosModule } from './photos/photos.module';
-import { HomeModule } from './home/home.module';
 import { RequestInterceptService } from './services/auth/request-interceptor/requestIntercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
-
-
 
 @NgModule({
   declarations: [
@@ -23,7 +21,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     ErrosModule,
     CabecalhoModule,
     RouterModule,
-    AppRoutingModule
+    FooterModule,
+    AppRoutingModule,
+    AlertModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, // esse provider é para incluir o token no header
     useClass: RequestInterceptService,

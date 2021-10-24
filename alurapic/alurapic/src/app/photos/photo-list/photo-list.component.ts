@@ -1,3 +1,4 @@
+import { LoadingService } from './../../shared/components/loading/loading.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,13 +23,19 @@ export class PhotoListComponent implements OnInit {
 
 
   constructor(private serviceApiPhotos : ApiService,
-    private activatedRouter : ActivatedRoute) { }
+    private activatedRouter : ActivatedRoute,
+    ) { }
 
     ngOnInit() {
-      this.userName = this.activatedRouter.snapshot.params.userName;
-      //this.carregaFotosNaTela()'
-      this.photosList = this.activatedRouter.snapshot.data.photos; //O array de fotos já foi carregado pelo resolver
-     /*  this.debounce
+      //this.userName = this.activatedRouter.snapshot.params.userName;
+      //this.photosList = this.activatedRouter.snapshot.data.photos; //O array de fotos já foi carregado pelo resolver
+      this.activatedRouter.params
+      .subscribe(params => {
+        this.userName = params.userName;
+        this.photosList = this.activatedRouter.snapshot.data.photos;
+      })
+
+      /*  this.debounce
             .pipe(debounceTime(400))
             .subscribe( valorFiltroDigitado => this.filter = valorFiltroDigitado); */
       }

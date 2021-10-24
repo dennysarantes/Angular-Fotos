@@ -2,7 +2,8 @@ import { DetectorPlataformaService } from './../../shared/plataforma/detector-pl
 import { AuthService } from './../../services/auth/auth.service';
 import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sigin',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SiginComponent implements OnInit {
 
+  fromUrl! : string;
   loginForm!: FormGroup | any;
   @ViewChild('userNameInput') userNameInput!: ElementRef<HTMLInputElement>; //Procura o elemento #userName do DOM
 
@@ -18,9 +20,16 @@ export class SiginComponent implements OnInit {
   constructor(private formBuilder : FormBuilder,
               private authService: AuthService,
               private router : Router,
-              private detectorPlataformaService : DetectorPlataformaService) { }
+              private detectorPlataformaService : DetectorPlataformaService,
+              private titleService : Title,
+              private activatedRoute : ActivatedRoute) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Login');
+
+    //Obtem a rota que o usuário tentou acessar antes de estar logado
+    this.activatedRoute.queryParams
+        .subscribe(params => this.fromUrl = params.fromUrl);
 
     this.loginForm = this.formBuilder.group({
       userName: [''],
@@ -80,8 +89,13 @@ export class SiginComponent implements OnInit {
         .authenticate(userName.value , password.value)
         .subscribe(
           (resp) => {
-            console.log('Autenticado com sucesso!')
-            this.router.navigate(['user',  userName.value])  //localhost:4200/user/flavio
+
+            if(this.fromUrl){
+              //this.router.navigate([this.fromUrl])
+              this.router.navigateByUrl(this.fromUrl)
+            }else{
+              this.router.navigate(['user',  userName.value])  //localhost:4200/user/flavio
+            }
           },
           err => {
             console.log('Usuário ou senha inválido!', err)

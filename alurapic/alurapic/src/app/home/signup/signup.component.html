@@ -1,13 +1,13 @@
 <h4 class="text-center p-3"> Tela de registro do usuário</h4>
 
-<form [formGroup]="signupForm" class="form mt-4" (ngSubmit)="registrarUsuario()"  >
+<form #form="ngForm" [formGroup]="signupForm" class="form mt-4" (ngSubmit)="registrarUsuario()"  >
     <div class="form-group">
 
         <input #emailInput id="emailInput" formControlName="email" placeholder="E-mail" class="form-control" autofocus >
-        <app-vmessage *ngIf="signupForm.get('email').errors?.required"
+        <app-vmessage *ngIf="signupForm.get('email').errors?.required && (form.submitted || signupForm.get('email').touched)"
                       mensagemDeErro="*">
         </app-vmessage>
-        <app-vmessage *ngIf="signupForm.get('email').errors?.email"
+        <app-vmessage *ngIf="signupForm.get('email').errors?.email && (form.submitted || signupForm.get('email').touched)"
                       mensagemDeErro="Email inválido">
         </app-vmessage>
 
@@ -15,23 +15,23 @@
 
     <div class="form-group">
         <input formControlName="fullName" placeholder="Nome completo" class="form-control mt-1">
-        <app-vmessage *ngIf="signupForm.get('fullName').errors?.required"
+        <app-vmessage *ngIf="signupForm.get('fullName').errors?.required && (form.submitted || signupForm.get('fullName').touched)"
                 mensagemDeErro="*">
       </app-vmessage>
-      <app-vmessage *ngIf="signupForm.get('fullName').errors?.minlength"
+      <app-vmessage *ngIf="signupForm.get('fullName').errors?.minlength && (form.submitted || signupForm.get('fullName').touched)"
                     mensagemDeErro="O nome deve ter pelo menos 10 palavras">
       </app-vmessage>
-      <app-vmessage *ngIf="signupForm.get('fullName').errors?.maxlength"
+      <app-vmessage *ngIf="signupForm.get('fullName').errors?.maxlength && (form.submitted || signupForm.get('fullName').touched)"
                      mensagemDeErro="O nome deve ter no máximo 50 palavras">
       </app-vmessage>
     </div>
 
     <div class="form-group mt-1">
         <input  autofocus formControlName="userName" placeholder="Nome de usuario" class="form-control mt-1">
-        <app-vmessage *ngIf="signupForm.get('userName').errors?.required"
+        <app-vmessage *ngIf="signupForm.get('userName').errors?.required && (form.submitted || signupForm.get('userName').touched)"
         mensagemDeErro="*">
         </app-vmessage>
-        <app-vmessage *ngIf="signupForm.get('userName').errors?.userNameVal"
+        <app-vmessage *ngIf="signupForm.get('userName').errors?.userNameVal && form.submitted"
         mensagemDeErro="O nome de usuário não pode começar com A -> testando validador próprio">
       </app-vmessage>
       <app-vmessage *ngIf="signupForm.get('userName').errors?.userJaExiste"
@@ -44,18 +44,21 @@
     <div class="form-group">
         <input formControlName="password" type="password" placeholder="Senha" class="form-control">
     </div>
-        <app-vmessage *ngIf="signupForm.get('password').errors?.required"
+        <app-vmessage *ngIf="signupForm.get('password').errors?.required && (form.submitted || signupForm.get('password').touched)"
               mensagemDeErro="*">
         </app-vmessage>
-        <app-vmessage *ngIf="signupForm.get('password').errors?.minlength"
+        <app-vmessage *ngIf="signupForm.get('password').errors?.minlength && (form.submitted || signupForm.get('password').touched)"
                     mensagemDeErro="A senha deve ter de 3 a 6 palavras">
       </app-vmessage>
 
-      <app-vmessage *ngIf="signupForm.get('password').errors?.maxlength"
+      <app-vmessage *ngIf="signupForm.get('password').errors?.maxlength && (form.submitted || signupForm.get('password').touched)"
                      mensagemDeErro="A senha deve ter de 3 a 6 palavras">
       </app-vmessage>
+      <app-vmessage *ngIf="signupForm.errors?.userNamePasswordValidator && (form.submitted || signupForm.get('password').touched)"
+      mensagemDeErro="A senha deve ser diferente do username"
+      ></app-vmessage>
 
-      <button [disabled]="!signupForm.valid || signupForm.pending" class="btn btn-primary btn-block" >Register</button>
+      <button class="btn btn-primary btn-block" >Register</button>
 
     <p>Já é um usuário?  <a [routerLink]="['']">Faça o log-in!</a></p>
 </form>

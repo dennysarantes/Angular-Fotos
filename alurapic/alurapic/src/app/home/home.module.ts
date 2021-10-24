@@ -1,3 +1,4 @@
+import { AlertModule } from './../shared/components/alert/alert/alert.module';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,8 @@ import { HomeRoutingModule } from './home.routing.module';
             ReactiveFormsModule,
             VMessageModule,
             RouterModule,
-            HomeRoutingModule]
+            HomeRoutingModule,
+            AlertModule]
 })
 
 export class HomeModule {}

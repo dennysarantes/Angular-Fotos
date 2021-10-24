@@ -13,7 +13,7 @@ export class PhotoListResolver implements Resolve<Observable<Photos[]>> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
       Observable<Photos[]> | Observable<Observable<Photos[]>> |
       Promise<Observable<Photos[]>> | any{
-
+        console.log('entrou no resolver...')
         const userName = route.params.userName;
         //return this.service.getPhotosApiPorNome(userName);
         return this.service.getPhotosApiPorNomePaginado(userName , 1);

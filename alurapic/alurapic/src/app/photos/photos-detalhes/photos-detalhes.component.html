@@ -1,0 +1,42 @@
+<div class="bg-white border mt-3" *ngIf="(photo$ | async) as photo">
+  <div class="row">
+    <div class="col-8">
+      <app-photo [caminhoImg]="photo.url" [description]="photo.description"></app-photo>
+    </div>
+    <div class="col-3 p-4">
+      <small>
+        <p class="text-left break-word">{{photo.description}}</p>
+
+        <div class="row justify-content-around mb-4">
+          <div class="col-4">
+            <i style="cursor: pointer"
+              (click)='like(photo)'
+              Check-If-Logged
+              class="far fa-heart fa-2x mr-2">
+              {{ photo.likes }}
+            </i>
+          </div>
+          <div class="col-4">
+            <i class="far fa-comment fa-2x mr-2 ml-2"></i>
+            {{ photo.comments }}
+          </div>
+          <i
+            CheckOwnerPhoto [photoUserId]="photo.userId"
+            (click)="removePhoto()"
+             style="cursor: pointer;"
+             class="col-4 fa fa-trash fa-2x lixeira">
+          </i>
+      </div>
+        <hr>
+      </small>
+      <app-photo-comments
+      *ngIf="photo.allowComments && estaLogado; else desabilitado"
+      [idPhoto]='idPhoto' >
+    </app-photo-comments>
+    <ng-template #desabilitado>
+      <p *ngIf="estaLogado">O dono desta foto desabilitou os comentários</p>
+      <p *ngIf="!estaLogado">Faça o login para comentar essa foto</p>
+    </ng-template>
+    </div>
+  </div>
+</div>

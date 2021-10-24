@@ -1,7 +1,8 @@
 import { Photos } from './photos/models/photos.model';
-import { ApiService } from './services/apiService.service';
-import { Component, OnInit } from '@angular/core';
-import { PhotoListComponent } from './photos/photo-list/photo-list.component';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,33 @@ export class AppComponent implements OnInit {
   photoList : any;
 
 
-  constructor(private serviceApiPhotos : ApiService) {
+  constructor(private router : Router,
+              private activatePage : ActivatedRoute,
+              private titleService : Title) {
+
+  }
+  ngAfterViewInit(): void {
 
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      switch (true) {
+        case event instanceof NavigationEnd:
+          let child = this.activatePage.firstChild;
+          console.log('entrou');
+          console.log('rota atual: ' + this.activatePage)
+          while (child?.firstChild) {
+            child = child.firstChild;
+          }
 
+          this.titleService.setTitle(child?.snapshot.data.title);
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 
 

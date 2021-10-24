@@ -1,3 +1,4 @@
+import { userNamePasswordValidator } from './username-password-validator/userNamePasswordValidator';
 import { DetectorPlataformaService } from 'src/app/shared/plataforma/detector-plataforma.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignupService } from './../../services/signup/signup.service';
@@ -39,6 +40,8 @@ export class SignupComponent implements OnInit {
       fullName: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(6)]],
       email: ['', [Validators.required, Validators.email]]
+    }, {
+      validator : userNamePasswordValidator //Validador crossfield, verifica se senha é igual ao username
     })
 
   }
@@ -50,7 +53,9 @@ export class SignupComponent implements OnInit {
   }
 
   registrarUsuario(){
-      const newUser = this.signupForm.getRawValue() as NewUser; //getRawValue devolve o objeto com todos os campos do form
+    const newUser = this.signupForm.getRawValue() as NewUser; //getRawValue devolve o objeto com todos os campos do form
+
+    if (this.signupForm.valid && !this.signupForm.pending) {
       this.signupService.registraUsuario(newUser)
       .subscribe(
         () =>{
@@ -61,6 +66,7 @@ export class SignupComponent implements OnInit {
             console.log(err);
         }
       );
+    }
   }
 
 }

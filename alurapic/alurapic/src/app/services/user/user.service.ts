@@ -10,6 +10,7 @@ import * as jwt_decode from 'jwt-decode'
 export class UserService {
 
   private userName : string = '';
+  private userId! : number;
   private userSubject = new BehaviorSubject<User>(null!); //Isso é um Observable do tipo User
 
 constructor(private tokenService : TokenService) {
@@ -31,11 +32,16 @@ getUserName(){
   return this.userName;
 }
 
+getUserId(){
+  return this.userId;
+}
+
 private decoteAndNotifica(){
 
   const token = this.tokenService.getToken();
   const user = jwt_decode.default(token) as User; //Já é sabido que dentro do token tem um User
   this.userName = user.name;
+  this.userId = user.id;
   this.userSubject.next(user);
 
   }

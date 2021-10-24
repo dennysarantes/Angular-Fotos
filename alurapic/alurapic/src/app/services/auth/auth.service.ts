@@ -1,10 +1,11 @@
+import { environment } from './../../../environments/environment';
 import { TokenService } from './../token/token.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators'
 import { UserService } from '../user/user.service';
 
-const API_URL = 'http://localhost:3000'
+const API_URL = environment.ApiUrl
 
 
 @Injectable({
@@ -24,7 +25,7 @@ OnInit(){
 authenticate(userName: string , password: string){
 
     return this.http
-      .post(API_URL + '/user/login',
+      .post(API_URL + 'user/login',
               {userName : userName, password: password}, {observe: 'response'})
       .pipe(tap(res =>{
           const token = res.headers.get('x-access-token');
